@@ -99,10 +99,10 @@ springBoot {
 
 sourceSets.main {
 	java.srcDir(listOf(
-		"${layout.buildDirectory}/generated/source/openapi/src/main/java",
-		"${layout.buildDirectory}/generated/source/graphql"
+		"${layout.buildDirectory.get()}/generated/source/openapi/src/main/java",
+		"${layout.buildDirectory.get()}/generated/source/graphql"
 	))
-	proto.srcDir("${layout.buildDirectory}/resources/schemas")
+	proto.srcDir("${layout.buildDirectory.get()}/resources/schemas")
 }
 
 schemaRegistry {
@@ -113,19 +113,19 @@ schemaRegistry {
 		artifact {
 			groupId = "simple"
 			id = "simple-grpc"
-			outputPath = "${layout.buildDirectory}/resources/schemas"
+			outputPath = "${layout.buildDirectory.get()}/resources/schemas"
 			outputFileName = "simple-grpc"
 		}
 		artifact {
 			groupId = "simple"
 			id = "simple-rest"
-			outputPath = "${layout.buildDirectory}/resources/schemas"
+			outputPath = "${layout.buildDirectory.get()}/resources/schemas"
 			outputFileName = "simple-rest"
 		}
 		artifact {
 			groupId = "simple"
 			id = "simple-gql"
-			outputPath = "${layout.buildDirectory}/resources/schemas"
+			outputPath = "${layout.buildDirectory.get()}/resources/schemas"
 			outputFileName = "simple-gql"
 		}
 	}
@@ -156,8 +156,8 @@ protobuf {
 openApiGenerate {
 	generatorName.set("java")
 	library.set("webclient")
-	inputSpec.set("${layout.buildDirectory}/resources/schemas/simple-rest.json")
-	outputDir.set("${layout.buildDirectory}/generated/source/openapi")
+	inputSpec.set("${layout.buildDirectory.get()}/resources/schemas/simple-rest.json")
+	outputDir.set("${layout.buildDirectory.get()}/generated/source/openapi")
 	apiPackage.set("com.example.simple.rest.api")
 	modelPackage.set("com.example.simple.rest.model")
 	globalProperties.set(mapOf(
@@ -184,8 +184,8 @@ openApiGenerate {
 }
 
 tasks.named<GraphQLCodegenGradleTask>("graphqlCodegen") {
-	graphqlSchemaPaths = listOf("${layout.buildDirectory}/resources/schemas/simple-gql.graphql")
-	outputDir = file("${layout.buildDirectory}/generated/source/graphql")
+	graphqlSchemaPaths = listOf("${layout.buildDirectory.get()}/resources/schemas/simple-gql.graphql")
+	outputDir = file("${layout.buildDirectory.get()}/generated/source/graphql")
 	packageName = "com.example.simple.graphql"
 	customTypesMapping = mutableMapOf(Pair("DateTime", "java.time.OffsetDateTime"))
 	generateClient = true
