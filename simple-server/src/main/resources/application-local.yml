@@ -1,0 +1,33 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  prometheus:
+    metrics:
+      export:
+        enabled: false
+  tracing:
+    enabled: false
+
+server:
+  port: 9080
+
+simple:
+  r2dbc:
+    master:
+      name: master
+      url: r2dbc:pool:mysql://127.0.0.1:3306/simple?allowPublicKeyRetrieval=true&useSSL=false
+      username: root
+      password:
+      pool:
+        initial-size: 1
+        max-size: 2
+    slave:
+      name: slave
+      url: r2dbc:pool:mysql://127.0.0.1:3306/simple?allowPublicKeyRetrieval=true&useSSL=false
+      username: root
+      password:
+      pool:
+        initial-size: 1
+        max-size: 2

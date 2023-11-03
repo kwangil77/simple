@@ -1,0 +1,50 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  prometheus:
+    metrics:
+      export:
+        enabled: false
+  tracing:
+    enabled: false
+
+spring:
+  cloud:
+    task:
+      initialize-enabled: true
+  datasource:
+    driver-class-name: org.hsqldb.jdbcDriver
+    jdbc-url: jdbc:hsqldb:mem:db
+    username: sa
+    password:
+    minimum-idle: 1
+    maximum-pool-size: 2
+    register-mbeans: true
+    pool-name: batch
+
+simple:
+  datasource:
+    master:
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mariadb://127.0.0.1:3306/simple?allowPublicKeyRetrieval=true&useSSL=false
+      username: root
+      password:
+      minimum-idle: 1
+      maximum-pool-size: 2
+      register-mbeans: true
+      pool-name: master
+    slave:
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mariadb://127.0.0.1:3306/simple?allowPublicKeyRetrieval=true&useSSL=false
+      username: root
+      password:
+      minimum-idle: 1
+      maximum-pool-size: 2
+      register-mbeans: true
+      pool-name: slave
+
+logging:
+  level:
+    net.ttddyy.dsproxy.listener.logging.SLF4JQueryLoggingListener: DEBUG

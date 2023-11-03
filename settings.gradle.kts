@@ -1,0 +1,5 @@
+include("simple-core")
+include("simple-batch")
+include("simple-api")
+include("simple-client")
+include("simple-server")

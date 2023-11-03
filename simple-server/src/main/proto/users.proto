@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package main;
+
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+option java_package = "com.example.simple.grpc";
+option java_outer_classname = "UserProto";
+
+service User {
+  rpc GetUsers (Empty) returns (stream UserResponse) {}
+  rpc GetUser (UserRequest) returns (UserResponse) {}
+}
+
+message Empty {}
+
+message UserRequest {
+  uint64 id = 1;
+}
+
+message UserResponse {
+  uint64 id = 1;
+  string email = 2;
+  string createdBy = 3;
+  google.protobuf.Timestamp createdDate = 4;
+  string lastModifiedBy = 5;
+  google.protobuf.Timestamp lastModifiedDate = 6;
+}

@@ -1,0 +1,39 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  prometheus:
+    metrics:
+      export:
+        enabled: false
+  tracing:
+    enabled: false
+
+server:
+  port: 7080
+
+grpc:
+  client:
+    simple-api:
+      address: static://127.0.0.1:8090
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
+    simple-server:
+      address: static://127.0.0.1:9090
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
+
+rest:
+  simple-api:
+    url: http://127.0.0.1:8080
+  simple-server:
+    url: http://127.0.0.1:9080
+
+graphql:
+  simple-api:
+    url: http://127.0.0.1:8080/graphql
+  simple-server:
+    url: http://127.0.0.1:9080/graphql

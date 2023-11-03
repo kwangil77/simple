@@ -1,0 +1,161 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: simple
+spec:
+  owner: devops
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: simple-external
+spec:
+  owner: devops
+  domain: simple
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: simple-internal
+spec:
+  owner: devops
+  domain: simple
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: simple-api
+  annotations:
+    backstage.io/kubernetes-id: simple-api
+    backstage.io/kubernetes-namespace: simple
+    backstage.io/kubernetes-label-selector: 'app=simple-api,environment=dev,service=simple-api'
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/linguist: https://github.com/kwangil77/simple.git
+    argocd/app-name: simple-api
+    sonarqube.org/project-key: 'com.example:simple-api'
+    vault.io/secrets-path: simple
+    grafana/alert-label-selector: 'app=simple-web,environment=dev,service=simple-api'
+    grafana/dashboard-selector: "title == 'Spring Boot Observability'"
+  links:
+  - url: https://confluence.example.io/display/devops/Simple+Project
+    title: Homepage
+    icon: home
+  - url: https://bitbucket.example.io/projects/TC/repos/simple/browse
+    title: Source
+    icon: github
+spec:
+  type: service
+  lifecycle: experimental
+  owner: devops
+  system: simple-external
+  providesApis:
+  - simple-rest
+  - simple-graphql
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: simple-server
+  annotations:
+    backstage.io/kubernetes-id: simple-server
+    backstage.io/kubernetes-namespace: simple
+    backstage.io/kubernetes-label-selector: 'app=simple-server,environment=dev,service=simple-server'
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/linguist: https://github.com/kwangil77/simple.git
+    argocd/app-name: simple-server
+    sonarqube.org/project-key: 'com.example:simple-server'
+    vault.io/secrets-path: simple
+    grafana/alert-label-selector: 'app=simple-web,environment=dev,service=simple-server'
+    grafana/dashboard-selector: "title == 'Spring Boot Observability'"
+  links:
+  - url: https://confluence.example.io/display/devops/Simple+Project
+    title: Homepage
+    icon: home
+  - url: https://bitbucket.example.io/projects/TC/repos/simple/browse
+    title: Source
+    icon: github
+spec:
+  type: service
+  lifecycle: experimental
+  owner: devops
+  system: simple-internal
+  providesApis:
+  - simple-grpc
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: simple-client
+  annotations:
+    backstage.io/kubernetes-id: simple-client
+    backstage.io/kubernetes-namespace: simple
+    backstage.io/kubernetes-label-selector: 'app=simple-client,environment=dev,service=simple-client'
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/linguist: https://github.com/kwangil77/simple.git
+    argocd/app-name: simple-client
+    sonarqube.org/project-key: 'com.example:simple-client'
+    vault.io/secrets-path: simple
+    grafana/alert-label-selector: 'app=simple-web,environment=dev,service=simple-client'
+    grafana/dashboard-selector: "title == 'Spring Boot Observability'"
+  links:
+  - url: https://confluence.example.io/display/devops/Simple+Project
+    title: Homepage
+    icon: home
+  - url: https://bitbucket.example.io/projects/TC/repos/simple/browse
+    title: Source
+    icon: github
+spec:
+  type: service
+  lifecycle: experimental
+  owner: devops
+  system: simple-internal
+  consumesApis:
+  - simple-grpc
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: simple-rest
+  links:
+  - url: https://github.com/kwangil77/simple
+    title: Home
+    icon: language
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: devops
+  system: simple-external
+  definition:
+    $text: https://apicurio-registry.example.io/apis/registry/v2/groups/simple/artifacts/simple-rest
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: simple-graphql
+  links:
+  - url: https://github.com/kwangil77/simple
+    title: Home
+    icon: language
+spec:
+  type: graphql
+  lifecycle: experimental
+  owner: devops
+  system: simple-external
+  definition:
+    $text: https://apicurio-registry.example.io/apis/registry/v2/groups/simple/artifacts/simple-gql
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: simple-grpc
+  links:
+  - url: https://github.com/kwangil77/simple
+    title: Home
+    icon: language
+spec:
+  type: grpc
+  lifecycle: experimental
+  owner: devops
+  system: simple-internal
+  definition:
+    $text: https://apicurio-registry.example.io/apis/registry/v2/groups/simple/artifacts/simple-grpc
