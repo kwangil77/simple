@@ -8,6 +8,7 @@ plugins {
 	id("com.gorylenko.gradle-git-properties") version "2.4.1" apply false
 	id("org.sonarqube") version "4.4.1.3373" apply false
 	id("org.springframework.boot") version "3.1.5"
+	id("org.graalvm.buildtools.native") version "0.9.28"
 	kotlin("jvm") version "1.8.22" apply false
 	kotlin("plugin.spring") version "1.8.22" apply false
 }
@@ -38,6 +39,7 @@ subprojects {
 		plugin("com.gorylenko.gradle-git-properties")
 		plugin("org.sonarqube")
 		plugin("org.springframework.boot")
+		plugin("org.graalvm.buildtools.native")
 		plugin("io.spring.dependency-management")
 		plugin("kotlin")
 		plugin("kotlin-spring")

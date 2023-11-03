@@ -1,0 +1,12 @@
+{
+  "resources": {
+    "includes": [
+      {
+        "pattern": "\\Qproject.properties\\E"
+      },
+      {
+        "pattern": "org/hsqldb/resources/.*"
+      }
+    ]
+  }
+}

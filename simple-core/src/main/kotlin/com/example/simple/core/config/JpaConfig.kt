@@ -1,6 +1,8 @@
 package com.example.simple.core.config
 
-import com.example.simple.core.model.ModelsMarker
+import com.example.simple.core.model.Auditable
+//import com.example.simple.core.model.ModelsMarker
+import com.example.simple.core.model.User
 import com.example.simple.core.repository.RepositoriesMarker
 import com.example.simple.core.security.SimpleAuditorAware
 import io.micrometer.observation.ObservationRegistry
@@ -16,7 +18,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters
+//import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy
@@ -28,6 +30,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.annotation.EnableTransactionManagement
 import org.springframework.transaction.support.TransactionSynchronizationManager
+import org.springframework.orm.jpa.persistenceunit.PersistenceManagedTypes
 import javax.sql.DataSource
 
 @Configuration
@@ -52,10 +55,14 @@ class JpaConfig(
 		val entityManagerFactoryBean = LocalContainerEntityManagerFactoryBean()
 		entityManagerFactoryBean.dataSource = simpleDataSource
 		entityManagerFactoryBean.jpaVendorAdapter = jpaVendorAdapter
-		entityManagerFactoryBean.setPackagesToScan(
-			ModelsMarker::class.java.getPackage().name,
-			Jsr310JpaConverters::class.java.getPackage().name
-		)
+//    entityManagerFactoryBean.setPackagesToScan(
+//        ModelsMarker::class.java.getPackage().name,
+//        Jsr310JpaConverters::class.java.getPackage().name
+//    )
+		entityManagerFactoryBean.setManagedTypes(PersistenceManagedTypes.of(
+			Auditable::class.java.name,
+			User::class.java.name
+		))
 		entityManagerFactoryBean.setJpaPropertyMap(
 			mapOf(
 				AvailableSettings.GLOBALLY_QUOTED_IDENTIFIERS to true

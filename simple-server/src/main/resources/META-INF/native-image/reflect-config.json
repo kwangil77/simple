@@ -1,0 +1,22 @@
+[
+  {
+    "name": "org.springframework.jmx.export.MBeanExporter",
+    "allDeclaredFields": true
+  },
+  {
+    "name": "org.springframework.jmx.export.metadata.AbstractJmxAttribute",
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "org.springframework.jmx.export.metadata.ManagedResource",
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "org.springframework.jmx.export.metadata.ManagedOperation",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.springframework.jmx.export.metadata.ManagedAttribute",
+    "allDeclaredMethods": true
+  }
+]

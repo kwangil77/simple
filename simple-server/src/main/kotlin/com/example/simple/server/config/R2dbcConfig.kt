@@ -2,11 +2,11 @@ package com.example.simple.server.config
 
 import com.example.simple.server.repository.RepositoriesMarker
 import com.example.simple.server.security.SimpleAuditorAware
-import io.micrometer.observation.ObservationRegistry
+//import io.micrometer.observation.ObservationRegistry
 import io.r2dbc.pool.ConnectionPool
 import io.r2dbc.pool.ConnectionPoolConfiguration
 import io.r2dbc.proxy.ProxyConnectionFactory
-import io.r2dbc.proxy.observation.ObservationProxyExecutionListener
+//import io.r2dbc.proxy.observation.ObservationProxyExecutionListener
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions
 import io.r2dbc.spi.Option
@@ -33,16 +33,16 @@ import java.time.Duration
 	basePackageClasses = [RepositoriesMarker::class]
 )
 @EnableR2dbcAuditing(auditorAwareRef = "simpleAuditor")
-class R2dbcConfig(
+class R2dbcConfig/*(
 	private val observationRegistry: ObservationRegistry
-) : AbstractR2dbcConfiguration() {
+)*/ : AbstractR2dbcConfiguration() {
 	override fun connectionFactory(): ConnectionFactory {
 		val connectionFactory = ReplicationRoutingConnectionFactory(
 			simpleMasterConnectionFactory(), simpleSlaveConnectionFactory())
 		return ProxyConnectionFactory.builder(
 			connectionFactory
 		)
-			.listener(ObservationProxyExecutionListener(observationRegistry, connectionFactory, null))
+//			.listener(ObservationProxyExecutionListener(observationRegistry, connectionFactory, null))
 			.build()
 	}
 

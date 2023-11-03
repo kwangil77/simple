@@ -1,0 +1,34 @@
+[
+  {
+    "name": "org.springframework.jmx.export.MBeanExporter",
+    "allDeclaredFields": true
+  },
+  {
+    "name": "org.springframework.jmx.export.metadata.AbstractJmxAttribute",
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "org.springframework.jmx.export.metadata.ManagedResource",
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "org.hibernate.dialect.MySQLDialect",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.hibernate.cfg.beanvalidation.TypeSafeActivator",
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSSMSW",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.PSWMS",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.example.simple.core.model.Auditable",
+    "allDeclaredFields": true
+  }
+]

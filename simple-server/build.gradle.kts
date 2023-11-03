@@ -1,3 +1,4 @@
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 buildscript {
@@ -135,11 +136,47 @@ protobuf {
 	}
 }
 
+graalvmNative {
+	metadataRepository {
+		enabled.set(true)
+	}
+	binaries {
+		all {
+			resources.autodetect()
+		}
+		named("main") {
+			javaLauncher.set(javaToolchains.launcherFor {
+				languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_17.toString()))
+				vendor.set(JvmVendorSpec.matching("GraalVM Community"))
+			})
+			mainClass.set("com.example.simple.server.SimpleServerApplicationKt")
+			sharedLibrary.set(false)
+			testSupport.set(false)
+			buildArgs.add("--initialize-at-build-time=ch.qos.logback,org.apache.commons.logging")
+			buildArgs.add("--initialize-at-run-time=io.netty")
+		}
+	}
+}
+
 jib {
 	from {
 		image = "gcr.io/distroless/java:17"
 	}
 	container {
 		ports = listOf("8080")
+	}
+}
+
+tasks.getByName<BootBuildImage>("bootBuildImage") {
+	builder.set("harbor.example.io/docker.io/paketobuildpacks/builder:tiny")
+	environment.set(mapOf("BP_NATIVE_IMAGE" to "true"))
+	docker {
+		if (project.hasProperty("deployUsername")) {
+			publishRegistry {
+				username.set(project.property("deployUsername").toString())
+				password.set(project.property("deployPassword").toString())
+			}
+		}
+		bindHostToBuilder.set(true)
 	}
 }
