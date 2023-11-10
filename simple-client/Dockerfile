@@ -1,4 +1,4 @@
-FROM harbor.example.io/docker.io/library/eclipse-temurin:17-jammy AS builder
+FROM docker.io/library/eclipse-temurin:17-jammy AS builder
 LABEL maintainer="Kwangil Ha <kwangil77@hotmail.com>"
 ARG DB_HOST=${DB_HOST:-127.0.0.1}
 ARG BUILD_DIR=/src/simple-client/build
@@ -10,7 +10,7 @@ RUN ./gradlew clean schemaRegistryDownload :simple-client:bootJar --console=plai
     && mkdir ${BUILD_DIR}/extracted \
     && java -Djarmode=layertools -jar ${BUILD_DIR}/libs/simple-client.jar extract --destination ${BUILD_DIR}/extracted
 
-FROM harbor.example.io/docker.io/library/eclipse-temurin:17-jre-jammy
+FROM docker.io/library/eclipse-temurin:17-jre-jammy
 LABEL maintainer="Kwangil Ha <kwangil77@hotmail.com>"
 ARG BUILD_DIR=/src/simple-client/build
 COPY --from=builder ${BUILD_DIR}/extracted/dependencies/ ./
