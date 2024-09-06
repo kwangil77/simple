@@ -1,7 +1,7 @@
 package com.example.simple.api.controller
 
-import com.google.common.collect.Streams
 import com.querydsl.core.types.Predicate
+import com.example.simple.api.model.UserRequest
 import com.example.simple.api.model.UserResponse
 import com.example.simple.core.model.QUser
 import com.example.simple.core.repository.UserRepository
@@ -24,7 +24,7 @@ class UserController(
 	@QueryMapping("users")
 	@Transactional(readOnly = true)
 	fun getUsers() =
-		Streams.stream(userRepository.findAll()).map { user -> UserResponse(user) }.toList()
+		userRepository.findAll().map { user -> UserResponse(user) }.toList()
 
 	@GetMapping("/{id}")
 	@QueryMapping("userById")
@@ -36,6 +36,6 @@ class UserController(
 
 	@PostMapping
 	@Transactional
-	fun createUser(@RequestBody user: UserResponse) =
+	fun createUser(@RequestBody user: UserRequest) =
 		UserResponse(userRepository.save(user.convertUser()))
 }

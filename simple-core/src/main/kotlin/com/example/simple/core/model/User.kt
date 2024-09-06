@@ -8,6 +8,6 @@ import jakarta.persistence.Column
 
 @Entity(name = "users")
 data class User(
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long,
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long?,
 	@Column(name = "email") var email: String
 ) : Auditable()
