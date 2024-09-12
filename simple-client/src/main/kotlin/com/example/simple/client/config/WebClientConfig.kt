@@ -45,7 +45,7 @@ class WebClientConfig(
 		val factory = ReactorResourceFactory()
 		factory.isUseGlobalResources = false
 		factory.connectionProvider = ConnectionProvider
-			.builder("exampleConnectionPool")
+			.builder("simpleConnectionPool")
 			.maxConnections(CONNECTION_POOL_SIZE)
 			.pendingAcquireMaxCount(-1)
 			.pendingAcquireTimeout(Duration.ofSeconds(READ_TIMEOUT_SEC))
