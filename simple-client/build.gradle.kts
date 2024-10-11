@@ -97,12 +97,18 @@ springBoot {
 	buildInfo()
 }
 
-sourceSets.main {
-	java.srcDir(listOf(
-		"${layout.buildDirectory.get()}/generated/source/openapi/src/main/java",
-		"${layout.buildDirectory.get()}/generated/source/graphql"
-	))
-	proto.srcDir("${layout.buildDirectory.get()}/resources/schemas")
+sourceSets {
+	main {
+		java {
+			srcDir(listOf(
+				"${layout.buildDirectory.get()}/generated/source/openapi/src/main/java",
+				"${layout.buildDirectory.get()}/generated/source/graphql"
+			))
+		}
+		proto {
+			srcDir("${layout.buildDirectory.get()}/resources/schemas")
+		}
+	}
 }
 
 schemaRegistry {
